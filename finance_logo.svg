@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   sodipodi:docname="finance_logo.svg"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     inkscape:zoom="1.4235831"
+     inkscape:cx="267.98577"
+     inkscape:cy="258.85388"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2" /><defs
+     id="defs1" /><g
+     inkscape:label="Background"
+     inkscape:groupmode="layer"
+     id="layer1"
+     sodipodi:insensitive="true"><rect
+       style="fill:#000000"
+       id="rect1"
+       width="512"
+       height="512"
+       x="0"
+       y="0" /></g><g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Rupee Symbol"><path
+       fill="#010101"
+       d="m 303.424,86.271997 h 68.224 l 24.96,-38.272 H 140.352 l -24.96,38.272 h 43.264 c 44.928,0 86.528,3.328 103.168,41.600003 H 140.352 l -24.96,38.272 h 151.424 v 1.664 c 0,28.288 -23.296,71.552 -99.84,71.552 h -38.272 v 36.608 L 278.464,464 h 68.224 L 190.272,269.312 c 64.896,-3.328 124.8,-39.936 133.12,-103.168 h 48.256 l 24.96,-38.272 h -74.88 c -1.664,-14.97601 -8.32,-29.952007 -18.304,-41.600003 z"
+       id="path1"
+       style="fill:#ffffff;stroke-width:1.664" /></g></svg>
