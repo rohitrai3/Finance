@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -30,6 +31,11 @@ class MainActivity : ComponentActivity() {
                         InputField("Type", "Debit/Credit")
                         InputField("Description", "Eat lunch from canteen")
                         InputField("Tags", "Food")
+                        Button(
+                            onClick = {}
+                        ) {
+                            Text("Submit")
+                        }
                     }
                 }
             }
@@ -62,6 +68,11 @@ fun InputFieldPreview() {
             InputField("Type", "Debit/Credit")
             InputField("Description", "Eat lunch from canteen")
             InputField("Tags", "Food")
+            Button(
+                onClick = {}
+            ) {
+                Text("Submit")
+            }
         }
     }
 }
