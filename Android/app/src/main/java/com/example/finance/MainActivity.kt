@@ -1,5 +1,6 @@
 package com.example.finance
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,11 +15,22 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.room.Room
+import com.example.finance.data.FinanceDatabase
+import com.example.finance.data.Transaction
+import com.example.finance.data.TransactionType
 import com.example.finance.ui.theme.FinanceTheme
+import java.util.Date
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val db = Room.databaseBuilder(
+            this,
+            FinanceDatabase::class.java, "finance_database"
+            )
+            .allowMainThreadQueries()
+            .build()
         enableEdgeToEdge()
         setContent {
             FinanceTheme {
@@ -26,20 +38,37 @@ class MainActivity : ComponentActivity() {
                     Column(
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        InputField("Amount", "123")
-                        InputField("Type", "Debit/Credit")
-                        InputField("Type", "Debit/Credit")
-                        InputField("Description", "Eat lunch from canteen")
-                        InputField("Tags", "Food")
-                        Button(
-                            onClick = {}
-                        ) {
-                            Text("Submit")
-                        }
+                        HomePage(db)
                     }
                 }
             }
         }
+    }
+}
+
+@Composable
+fun HomePage(db: FinanceDatabase) {
+    val transaction: Transaction = Transaction(
+        id = 1,
+        amount = 10.0,
+        type = TransactionType.DEBIT,
+        description = "Test payment",
+        tags = "Test",
+        date = Date(),
+        createTime = Date(),
+        updateTime = Date()
+    )
+    InputField("Amount", "123")
+    InputField("Type", "Debit/Credit")
+    InputField("Type", "Debit/Credit")
+    InputField("Description", "Eat lunch from canteen")
+    InputField("Tags", "Food")
+    Button(
+        onClick = {
+            db.transactionDao().insert(transaction)
+        }
+    ) {
+        Text("Submit")
     }
 }
 
