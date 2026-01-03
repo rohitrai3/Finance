@@ -8,14 +8,14 @@ import java.util.Date
 @Entity(tableName = "transactions")
 data class Transaction(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int = 0,
     val amount: Double,
     val type: TransactionType,
     val description: String,
     val tags: String,
-    val date: Date,
+    val date: Long,
     @ColumnInfo(name = "create_time")
-    val createTime: Date,
+    val createTime: Long = Date().time,
     @ColumnInfo(name = "update_time")
-    val updateTime: Date,
+    val updateTime: Long = Date().time,
 )
