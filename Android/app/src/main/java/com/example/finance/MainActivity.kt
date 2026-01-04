@@ -1,5 +1,6 @@
 package com.example.finance
 
+import android.icu.text.DateFormat
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,6 +29,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.room.Room
@@ -63,6 +65,38 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun HomePage(db: FinanceDatabase) {
+    ViewTransactions(db)
+    AddTransactionForm(db)
+}
+
+@Composable
+fun ViewTransactions(db: FinanceDatabase) {
+    val transactions = db.transactionDao().getAll()
+    val df = DateFormat.getDateInstance()
+    transactions.forEach { transaction ->
+        Column {
+            Row {
+                Text(stringResource(R.string.amount_label))
+                Text( transaction.amount.toString() )
+            }
+            Row {
+                Text(stringResource(R.string.type_label))
+                Text( transaction.type.toString() )
+            }
+            Row {
+                Text(stringResource(R.string.date_label))
+                Text( df.format(Date(transaction.date)) )
+            }
+            Row {
+                Text(stringResource(R.string.description_label))
+                Text( transaction.description.toString() )
+            }
+        }
+    }
+}
+
+@Composable
+fun AddTransactionForm(db: FinanceDatabase) {
     val amount = rememberTextFieldState()
     val isAmountError = rememberSaveable { mutableStateOf(false) }
     val types = listOf(TransactionType.DEBIT, TransactionType.CREDIT)
@@ -73,12 +107,24 @@ fun HomePage(db: FinanceDatabase) {
     val isTagsError = rememberSaveable { mutableStateOf(false) }
     val date = rememberDatePickerState(
         initialSelectedDateMillis = Date().time,
-        initialDisplayMode = DisplayMode.Input
+        initialDisplayMode = DisplayMode.Input,
     )
-    NumberInput(isAmountError, "Amount", "100", amount)
+    NumberInput(
+        isAmountError,
+        stringResource(R.string.amount_label),
+        stringResource(R.string.amount_placeholder),
+        amount)
     SelectType(types, selectedType, onTypeSelected)
-    TextInput(isDescriptionError, "Description", "Ate lunch in canteen", description)
-    TextInput(isTagsError, "Tags", "Food", tags)
+    TextInput(
+        isDescriptionError,
+        stringResource(R.string.description_label),
+        stringResource(R.string.description_placeholder),
+        description)
+    TextInput(
+        isTagsError,
+        stringResource(R.string.tags_label),
+        stringResource(R.string.tags_placeholder),
+        tags)
     SelectDate(date)
     Button(
         onClick = {
@@ -99,7 +145,7 @@ fun HomePage(db: FinanceDatabase) {
             }
         }
     ) {
-        Text("Submit")
+        Text( stringResource(R.string.add_label) )
     }
 }
 
@@ -114,7 +160,7 @@ fun NumberInput(isError: MutableState<Boolean>, label: String, placeholder: Stri
             placeholder = { Text(placeholder) },
             state = state,
             supportingText = {
-                Text(if (isError.value) "Please enter a value" else "")
+                Text(if (isError.value) stringResource(R.string.add_error_message) else "")
             },
         )
     }
@@ -151,7 +197,7 @@ fun TextInput(isError: MutableState<Boolean>, label: String, placeholder: String
             placeholder = { Text(placeholder) },
             state = state,
             supportingText = {
-                Text(if (isError.value) "Please enter a value" else "")
+                Text(if (isError.value) stringResource(R.string.add_error_message) else "")
             }
         )
     }

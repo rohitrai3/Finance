@@ -1,3 +1,13 @@
 <resources>
+    <string name="add_label">Add</string>
+    <string name="add_error_message">Please enter a value</string>
     <string name="app_name">Finance</string>
+    <string name="amount_label">Amount</string>
+    <string name="amount_placeholder">100</string>
+    <string name="date_label">Date</string>
+    <string name="description_label">Description</string>
+    <string name="description_placeholder">Ate lunch in canteen</string>
+    <string name="tags_label">Tags</string>
+    <string name="tags_placeholder">Food</string>
+    <string name="type_label">Type</string>
 </resources>
