@@ -1,43 +1,21 @@
 package com.example.finance
 
-import android.icu.text.DateFormat
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.input.TextFieldState
-import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.material3.Button
-import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DatePickerState
-import androidx.compose.material3.DisplayMode
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.input.KeyboardType
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
 import com.example.finance.data.FinanceDatabase
-import com.example.finance.data.Transaction
-import com.example.finance.data.TransactionType
+import com.example.finance.ui.component.NavBar
 import com.example.finance.ui.theme.FinanceTheme
-import java.util.Date
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,164 +28,32 @@ class MainActivity : ComponentActivity() {
             .build()
         enableEdgeToEdge()
         setContent {
-            FinanceTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column(
-                        modifier = Modifier.padding(innerPadding)
-                    ) {
-                        HomePage(db)
-                    }
-                }
-            }
+            FinanceApp(db)
         }
     }
 }
 
 @Composable
-fun HomePage(db: FinanceDatabase) {
-    ViewTransactions(db)
-    AddTransactionForm(db)
-}
-
-@Composable
-fun ViewTransactions(db: FinanceDatabase) {
-    val transactions = db.transactionDao().getAll()
-    val df = DateFormat.getDateInstance()
-    transactions.forEach { transaction ->
-        Column {
-            Row {
-                Text(stringResource(R.string.amount_label))
-                Text( transaction.amount.toString() )
-            }
-            Row {
-                Text(stringResource(R.string.type_label))
-                Text( transaction.type.toString() )
-            }
-            Row {
-                Text(stringResource(R.string.date_label))
-                Text( df.format(Date(transaction.date)) )
-            }
-            Row {
-                Text(stringResource(R.string.description_label))
-                Text( transaction.description.toString() )
-            }
+fun FinanceApp(db: FinanceDatabase) {
+    FinanceTheme {
+        val navController = rememberNavController()
+        val currentBackStack by navController.currentBackStackEntryAsState()
+        val currentDestination = currentBackStack?.destination
+        val currentScreen =
+            financeScreens.find { it.route == currentDestination?.route } ?: ViewTransactions
+        Scaffold(
+            bottomBar = { NavBar(
+                currentScreen = currentScreen,
+                onTabSelected = { screen -> navController.navigateSingleTopTo(screen.route) },
+                screens = financeScreens
+            ) },
+            modifier = Modifier.fillMaxSize()
+        ) { innerPadding ->
+            FinanceNavHost(
+                db,
+                modifier = Modifier.padding(innerPadding),
+                navController = navController
+            )
         }
-    }
-}
-
-@Composable
-fun AddTransactionForm(db: FinanceDatabase) {
-    val amount = rememberTextFieldState()
-    val isAmountError = rememberSaveable { mutableStateOf(false) }
-    val types = listOf(TransactionType.DEBIT, TransactionType.CREDIT)
-    val (selectedType, onTypeSelected) = remember { mutableStateOf(types[0]) }
-    val description = rememberTextFieldState()
-    val isDescriptionError = rememberSaveable { mutableStateOf((false)) }
-    val tags = rememberTextFieldState()
-    val isTagsError = rememberSaveable { mutableStateOf(false) }
-    val date = rememberDatePickerState(
-        initialSelectedDateMillis = Date().time,
-        initialDisplayMode = DisplayMode.Input,
-    )
-    NumberInput(
-        isAmountError,
-        stringResource(R.string.amount_label),
-        stringResource(R.string.amount_placeholder),
-        amount)
-    SelectType(types, selectedType, onTypeSelected)
-    TextInput(
-        isDescriptionError,
-        stringResource(R.string.description_label),
-        stringResource(R.string.description_placeholder),
-        description)
-    TextInput(
-        isTagsError,
-        stringResource(R.string.tags_label),
-        stringResource(R.string.tags_placeholder),
-        tags)
-    SelectDate(date)
-    Button(
-        onClick = {
-            isAmountError.value = amount.text.isEmpty()
-            isDescriptionError.value = description.text.isEmpty()
-            isTagsError.value = tags.text.isEmpty()
-
-            if (!(isAmountError.value || isDescriptionError.value || isTagsError.value)) {
-                db.transactionDao().insert(
-                    Transaction(
-                        amount = amount.text.toString().toDouble(),
-                        type = selectedType,
-                        description = description.text.toString(),
-                        tags = tags.text.toString(),
-                        date = date.selectedDateMillis ?: Date().time
-                    )
-                )
-            }
-        }
-    ) {
-        Text( stringResource(R.string.add_label) )
-    }
-}
-
-@Composable
-fun NumberInput(isError: MutableState<Boolean>, label: String, placeholder: String, state: TextFieldState) {
-    Column {
-        TextField(
-            isError = isError.value,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            label = { Text(if (isError.value) "$label*" else label) },
-            modifier = Modifier,
-            placeholder = { Text(placeholder) },
-            state = state,
-            supportingText = {
-                Text(if (isError.value) stringResource(R.string.add_error_message) else "")
-            },
-        )
-    }
-}
-
-@Composable
-fun SelectType(types: List<TransactionType>, selectedType: TransactionType, onTypeSelected: (TransactionType) -> Unit) {
-    Row(Modifier.selectableGroup()) {
-        types.forEach { type ->
-            Row(
-                Modifier.selectable(
-                        selected = (type == selectedType),
-                        onClick = { onTypeSelected(type) },
-                        role = Role.RadioButton,
-                    )
-            ) {
-                RadioButton(
-                    selected = type == selectedType,
-                    onClick = null,
-                )
-                Text(type.toString())
-            }
-        }
-    }
-}
-
-@Composable
-fun TextInput(isError: MutableState<Boolean>, label: String, placeholder: String, state: TextFieldState) {
-    Column {
-        TextField(
-            isError = isError.value,
-            label = { Text(if (isError.value) "$label*" else label) },
-            modifier = Modifier,
-            placeholder = { Text(placeholder) },
-            state = state,
-            supportingText = {
-                Text(if (isError.value) stringResource(R.string.add_error_message) else "")
-            }
-        )
-    }
-}
-
-@Composable
-fun SelectDate(date: DatePickerState) {
-    Column {
-        DatePicker(
-            state = date,
-        )
     }
 }

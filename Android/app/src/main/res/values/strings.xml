@@ -7,6 +7,7 @@
     <string name="date_label">Date</string>
     <string name="description_label">Description</string>
     <string name="description_placeholder">Ate lunch in canteen</string>
+    <string name="rupee_symbol">₹</string>
     <string name="tags_label">Tags</string>
     <string name="tags_placeholder">Food</string>
     <string name="type_label">Type</string>
