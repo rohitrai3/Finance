@@ -23,8 +23,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
@@ -62,30 +64,39 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun HomePage(db: FinanceDatabase) {
     val amount = rememberTextFieldState()
+    val isAmountError = rememberSaveable { mutableStateOf(false) }
     val types = listOf(TransactionType.DEBIT, TransactionType.CREDIT)
     val (selectedType, onTypeSelected) = remember { mutableStateOf(types[0]) }
     val description = rememberTextFieldState()
+    val isDescriptionError = rememberSaveable { mutableStateOf((false)) }
     val tags = rememberTextFieldState()
+    val isTagsError = rememberSaveable { mutableStateOf(false) }
     val date = rememberDatePickerState(
         initialSelectedDateMillis = Date().time,
         initialDisplayMode = DisplayMode.Input
     )
-    NumberInput("Amount", "100", amount)
+    NumberInput(isAmountError, "Amount", "100", amount)
     SelectType(types, selectedType, onTypeSelected)
-    TextInput("Description", "Ate lunch in canteen", description)
-    TextInput("Tags", "Food", tags)
+    TextInput(isDescriptionError, "Description", "Ate lunch in canteen", description)
+    TextInput(isTagsError, "Tags", "Food", tags)
     SelectDate(date)
     Button(
         onClick = {
-            db.transactionDao().insert(
-                Transaction(
-                    amount = amount.text.toString().toDouble(),
-                    type = selectedType,
-                    description = description.text.toString(),
-                    tags = tags.text.toString(),
-                    date = date.selectedDateMillis ?: Date().time
+            isAmountError.value = amount.text.isEmpty()
+            isDescriptionError.value = description.text.isEmpty()
+            isTagsError.value = tags.text.isEmpty()
+
+            if (!(isAmountError.value || isDescriptionError.value || isTagsError.value)) {
+                db.transactionDao().insert(
+                    Transaction(
+                        amount = amount.text.toString().toDouble(),
+                        type = selectedType,
+                        description = description.text.toString(),
+                        tags = tags.text.toString(),
+                        date = date.selectedDateMillis ?: Date().time
+                    )
                 )
-            )
+            }
         }
     ) {
         Text("Submit")
@@ -93,14 +104,18 @@ fun HomePage(db: FinanceDatabase) {
 }
 
 @Composable
-fun NumberInput(label: String, placeholder: String, state: TextFieldState, modifier: Modifier = Modifier) {
+fun NumberInput(isError: MutableState<Boolean>, label: String, placeholder: String, state: TextFieldState) {
     Column {
         TextField(
-            state = state,
-            label = { Text(label) },
-            placeholder = { Text(placeholder) },
+            isError = isError.value,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = modifier,
+            label = { Text(if (isError.value) "$label*" else label) },
+            modifier = Modifier,
+            placeholder = { Text(placeholder) },
+            state = state,
+            supportingText = {
+                Text(if (isError.value) "Please enter a value" else "")
+            },
         )
     }
 }
@@ -127,13 +142,17 @@ fun SelectType(types: List<TransactionType>, selectedType: TransactionType, onTy
 }
 
 @Composable
-fun TextInput(label: String, placeholder: String, state: TextFieldState, modifier: Modifier = Modifier) {
+fun TextInput(isError: MutableState<Boolean>, label: String, placeholder: String, state: TextFieldState) {
     Column {
         TextField(
-            state = state,
-            label = { Text(label) },
+            isError = isError.value,
+            label = { Text(if (isError.value) "$label*" else label) },
+            modifier = Modifier,
             placeholder = { Text(placeholder) },
-            modifier = modifier,
+            state = state,
+            supportingText = {
+                Text(if (isError.value) "Please enter a value" else "")
+            }
         )
     }
 }
