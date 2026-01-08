@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TransactionDao {
@@ -18,5 +19,5 @@ interface TransactionDao {
     fun delete(transaction: Transaction)
 
     @Query("SELECT * FROM transactions")
-    fun getAll(): List<Transaction>
+    fun getAll(): Flow<List<Transaction>>
 }

@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -23,7 +24,7 @@ import java.util.Date
 
 @Composable
 fun FinanceNavHost(db: FinanceDatabase, modifier: Modifier = Modifier, navController: NavHostController) {
-    val transactions = db.transactionDao().getAll()
+    val transactions = db.transactionDao().getAll().collectAsStateWithLifecycle(initialValue = listOf())
     val amount = rememberTextFieldState()
     val isAmountError = rememberSaveable { mutableStateOf(false) }
     val types = listOf(TransactionType.DEBIT, TransactionType.CREDIT)
@@ -61,7 +62,7 @@ fun FinanceNavHost(db: FinanceDatabase, modifier: Modifier = Modifier, navContro
         modifier = modifier.padding(16.dp)
     ) {
         composable(route = ViewTransactions.route) {
-            ViewTransactionsScreen(transactions)
+            ViewTransactionsScreen(transactions.value)
         }
         composable(route = AddTransaction.route) {
             AddTransactionScreen(
