@@ -1,6 +1,8 @@
 package com.example.finance.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.DatePickerState
@@ -9,7 +11,10 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.example.finance.R
 import com.example.finance.data.TransactionType
 import com.example.finance.ui.component.NumberInput
@@ -32,31 +37,36 @@ fun AddTransactionScreen(
     date: DatePickerState = rememberDatePickerState(),
     onAddButtonClick: () -> Unit = {}
 ) {
-    Column {
-        NumberInput(
-            isAmountError,
-            stringResource(R.string.amount_label),
-            stringResource(R.string.amount_placeholder),
-            amount
-        )
-        SelectType(types, selectedType, onTypeSelected)
-        TextInput(
-            isDescriptionError,
-            stringResource(R.string.description_label),
-            stringResource(R.string.description_placeholder),
-            description
-        )
-        TextInput(
-            isTagsError,
-            stringResource(R.string.tags_label),
-            stringResource(R.string.tags_placeholder),
-            tags
-        )
-        SelectDate(date)
-        Button(
-            onClick = { onAddButtonClick() }
-        ) {
-            Text(stringResource(R.string.add_label))
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        Column(verticalArrangement = Arrangement.spacedBy(16.dp), horizontalAlignment = Alignment.End) {
+            NumberInput(
+                isAmountError,
+                stringResource(R.string.amount_label),
+                stringResource(R.string.amount_placeholder),
+                amount
+            )
+            SelectType(types, selectedType, onTypeSelected)
+            TextInput(
+                isDescriptionError,
+                stringResource(R.string.description_label),
+                stringResource(R.string.description_placeholder),
+                description
+            )
+            TextInput(
+                isTagsError,
+                stringResource(R.string.tags_label),
+                stringResource(R.string.tags_placeholder),
+                tags
+            )
+            SelectDate(date)
+            Button(
+                onClick = { onAddButtonClick() }
+            ) {
+                Text(stringResource(R.string.add_label))
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.finance
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.rememberDatePickerState
@@ -8,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -32,7 +34,7 @@ fun FinanceNavHost(db: FinanceDatabase, modifier: Modifier = Modifier, navContro
     val isTagsError = rememberSaveable { mutableStateOf(false) }
     val date = rememberDatePickerState(
         initialSelectedDateMillis = Date().time,
-        initialDisplayMode = DisplayMode.Input,
+        initialDisplayMode = DisplayMode.Input
     )
 
     fun onAddButtonClick() {
@@ -56,7 +58,7 @@ fun FinanceNavHost(db: FinanceDatabase, modifier: Modifier = Modifier, navContro
     NavHost(
         navController = navController,
         startDestination = ViewTransactions.route,
-        modifier = modifier
+        modifier = modifier.padding(16.dp)
     ) {
         composable(route = ViewTransactions.route) {
             ViewTransactionsScreen(transactions)
@@ -72,9 +74,8 @@ fun FinanceNavHost(db: FinanceDatabase, modifier: Modifier = Modifier, navContro
                 isDescriptionError,
                 tags,
                 isTagsError,
-                date,
-                { onAddButtonClick() }
-            )
+                date
+            ) { onAddButtonClick() }
         }
     }
 }
