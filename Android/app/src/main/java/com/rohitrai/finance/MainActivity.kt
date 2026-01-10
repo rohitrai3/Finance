@@ -16,7 +16,6 @@ import androidx.room.Room
 import com.rohitrai.finance.data.FinanceDatabase
 import com.rohitrai.finance.ui.component.NavBar
 import com.rohitrai.finance.ui.theme.FinanceTheme
-import kotlin.jvm.java
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,12 +46,11 @@ fun FinanceApp(db: FinanceDatabase) {
                 currentScreen = currentScreen,
                 onTabSelected = { screen -> navController.navigateSingleTopTo(screen.route) },
                 screens = financeScreens
-            ) },
-            modifier = Modifier.fillMaxSize()
+            ) }
         ) { innerPadding ->
             FinanceNavHost(
                 db,
-                modifier = Modifier.padding(innerPadding),
+                modifier = Modifier.fillMaxSize().padding(innerPadding),
                 navController = navController
             )
         }
