@@ -1,4 +1,4 @@
-package com.example.finance
+package com.rohitrai.finance
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -13,9 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
-import com.example.finance.data.FinanceDatabase
-import com.example.finance.ui.component.NavBar
-import com.example.finance.ui.theme.FinanceTheme
+import com.rohitrai.finance.data.FinanceDatabase
+import com.rohitrai.finance.ui.component.NavBar
+import com.rohitrai.finance.ui.theme.FinanceTheme
+import kotlin.jvm.java
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

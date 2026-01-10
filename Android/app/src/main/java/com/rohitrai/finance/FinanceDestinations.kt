@@ -1,4 +1,4 @@
-package com.example.finance
+package com.rohitrai.finance
 
 sealed interface FinanceDestination {
     val route: String

@@ -1,4 +1,4 @@
-package com.example.finance.ui.component
+package com.rohitrai.finance.ui.component
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -25,9 +25,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.finance.R
-import com.example.finance.ui.theme.Gray
-import com.example.finance.ui.theme.White
+import com.rohitrai.finance.R
+import com.rohitrai.finance.ui.theme.Gray
+import com.rohitrai.finance.ui.theme.White
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

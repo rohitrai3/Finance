@@ -1,4 +1,4 @@
-package com.example.finance.ui.component
+package com.rohitrai.finance.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import com.example.finance.FinanceDestination
+import com.rohitrai.finance.FinanceDestination
 
 @Composable
 fun NavBar(

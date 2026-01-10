@@ -1,4 +1,4 @@
-package com.example.finance.data
+package com.rohitrai.finance.data
 
 enum class TransactionType {
     CREDIT,

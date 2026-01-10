@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.finance"
+    namespace = "com.rohitrai.finance"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.example.finance"
+        applicationId = "com.rohitrai.finance"
         minSdk = 31
         targetSdk = 36
         versionCode = 1
@@ -51,7 +51,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.10.0")
+    implementation(libs.androidx.lifecycle.runtime.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -64,6 +64,6 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.9.6")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.10.0")
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
 }

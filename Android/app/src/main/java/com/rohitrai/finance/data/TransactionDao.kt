@@ -1,4 +1,4 @@
-package com.example.finance.data
+package com.rohitrai.finance.data
 
 import androidx.room.Dao
 import androidx.room.Delete

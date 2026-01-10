@@ -1,8 +1,9 @@
-package com.example.finance.data
+package com.rohitrai.finance.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.rohitrai.finance.data.TransactionType
 import java.util.Date
 
 @Entity(tableName = "transactions")

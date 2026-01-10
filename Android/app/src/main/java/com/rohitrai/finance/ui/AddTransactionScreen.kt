@@ -1,4 +1,4 @@
-package com.example.finance.ui
+package com.rohitrai.finance.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,12 +15,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.finance.R
-import com.example.finance.data.TransactionType
-import com.example.finance.ui.component.NumberInput
-import com.example.finance.ui.component.SelectDate
-import com.example.finance.ui.component.SelectType
-import com.example.finance.ui.component.TextInput
+import com.rohitrai.finance.R
+import com.rohitrai.finance.data.TransactionType
+import com.rohitrai.finance.ui.component.NumberInput
+import com.rohitrai.finance.ui.component.SelectDate
+import com.rohitrai.finance.ui.component.SelectType
+import com.rohitrai.finance.ui.component.TextInput
 import java.util.Collections
 
 @Composable

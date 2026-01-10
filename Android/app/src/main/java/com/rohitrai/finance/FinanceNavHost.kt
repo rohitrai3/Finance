@@ -1,4 +1,4 @@
-package com.example.finance
+package com.rohitrai.finance
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
@@ -15,11 +15,11 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.finance.data.FinanceDatabase
-import com.example.finance.data.Transaction
-import com.example.finance.data.TransactionType
-import com.example.finance.ui.AddTransactionScreen
-import com.example.finance.ui.ViewTransactionsScreen
+import com.rohitrai.finance.data.FinanceDatabase
+import com.rohitrai.finance.data.Transaction
+import com.rohitrai.finance.data.TransactionType
+import com.rohitrai.finance.ui.AddTransactionScreen
+import com.rohitrai.finance.ui.ViewTransactionsScreen
 import java.util.Date
 
 @Composable
