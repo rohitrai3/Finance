@@ -6,12 +6,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rohitrai.finance.R
@@ -24,7 +27,6 @@ import com.rohitrai.finance.ui.theme.White
 fun TextInput(
     isError: MutableState<Boolean>,
     label: String,
-    placeholder: String,
     state: TextFieldState
 ) {
     BasicTextField(
@@ -35,8 +37,14 @@ fun TextInput(
             ))
             innerTextField()
         },
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+        lineLimits = TextFieldLineLimits.SingleLine,
         modifier = Modifier
-            .border(width = 1.dp, color = if (isError.value) Red else Gray, shape = RoundedCornerShape(16.dp))
+            .border(
+                color = if (isError.value) Red else Gray,
+                shape = RoundedCornerShape(16.dp),
+                width = 1.dp
+            )
             .fillMaxWidth()
             .padding(16.dp),
         state = state,
@@ -45,5 +53,8 @@ fun TextInput(
             color = White
         )
     )
-    if (isError.value) BasicText(style = TextStyle(color = Red), text = stringResource(R.string.add_error_message))
+    if (isError.value) BasicText(
+        style = TextStyle(color = Red),
+        text = stringResource(R.string.add_error_message)
+    )
 }

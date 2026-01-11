@@ -49,20 +49,17 @@ fun AddTransactionScreen(
             NumberInput(
                 isAmountError,
                 stringResource(R.string.amount_label),
-                stringResource(R.string.amount_placeholder),
                 amount
             )
             SelectType(types, selectedType, onTypeSelected)
             TextInput(
                 isDescriptionError,
                 stringResource(R.string.description_label),
-                stringResource(R.string.description_placeholder),
                 description
             )
             TextInput(
                 isTagsError,
                 stringResource(R.string.tags_label),
-                stringResource(R.string.tags_placeholder),
                 tags
             )
             SelectDate(date)
