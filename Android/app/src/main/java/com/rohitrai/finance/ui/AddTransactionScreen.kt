@@ -3,6 +3,7 @@ package com.rohitrai.finance.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.DatePickerState
@@ -38,10 +39,13 @@ fun AddTransactionScreen(
     onAddButtonClick: () -> Unit = {}
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.imePadding().fillMaxSize(),
         verticalArrangement = Arrangement.Bottom
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(16.dp), horizontalAlignment = Alignment.End) {
+        Column(
+            horizontalAlignment = Alignment.End,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
             NumberInput(
                 isAmountError,
                 stringResource(R.string.amount_label),
