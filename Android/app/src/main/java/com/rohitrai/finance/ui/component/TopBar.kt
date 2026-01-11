@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,6 +20,8 @@ import com.rohitrai.finance.R
 import com.rohitrai.finance.ui.theme.DarkGray
 import com.rohitrai.finance.ui.theme.White
 
+const val DATA_FILE_NAME = "finance_data.csv"
+
 @Composable
 fun TopBar(activity: Activity) {
     Row(
@@ -31,7 +32,11 @@ fun TopBar(activity: Activity) {
             .height(48.dp),
         verticalAlignment = Alignment.Bottom
     ) {
-        Text(color = White, text = stringResource(R.string.import_label))
+        Text(
+            color = White,
+            modifier = Modifier.clickable(onClick = { importData(activity) }),
+            text = stringResource(R.string.import_label)
+        )
         Text(
             color = White,
             modifier = Modifier
@@ -42,11 +47,21 @@ fun TopBar(activity: Activity) {
     }
 }
 
+fun importData(activity: Activity) {
+    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+        addCategory(Intent.CATEGORY_OPENABLE)
+        type = "text/*"
+        putExtra(Intent.EXTRA_TITLE, DATA_FILE_NAME)
+    }
+
+    startActivityForResult(activity, intent, 1, null)
+}
+
 fun exportData(activity: Activity) {
     val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
         addCategory(Intent.CATEGORY_OPENABLE)
         type = "text/csv"
-        putExtra(Intent.EXTRA_TITLE, "finance_data.csv")
+        putExtra(Intent.EXTRA_TITLE, DATA_FILE_NAME)
     }
 
     startActivityForResult(activity, intent, 2, null)

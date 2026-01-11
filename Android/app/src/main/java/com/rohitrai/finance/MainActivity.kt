@@ -16,6 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
+import com.opencsv.bean.CsvToBeanBuilder
 import com.opencsv.bean.StatefulBeanToCsvBuilder
 import com.rohitrai.finance.data.FinanceDatabase
 import com.rohitrai.finance.data.Transaction
@@ -23,42 +24,61 @@ import com.rohitrai.finance.ui.component.NavBar
 import com.rohitrai.finance.ui.component.TopBar
 import com.rohitrai.finance.ui.theme.FinanceTheme
 import java.io.FileNotFoundException
+import java.io.FileReader
 import java.io.FileWriter
 import java.io.IOException
 
 class MainActivity : ComponentActivity() {
+    var db: FinanceDatabase? = null
     var transactions = listOf<Transaction>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val db = Room.databaseBuilder(
-            this,
-            FinanceDatabase::class.java, "finance_database"
+        db = Room.databaseBuilder(
+            this, FinanceDatabase::class.java, "finance_database"
         )
             .allowMainThreadQueries()
             .fallbackToDestructiveMigration(true)
             .build()
         enableEdgeToEdge()
         setContent {
-            transactions = db.transactionDao().getAll()
-                .collectAsStateWithLifecycle(initialValue = listOf()).value
+            transactions = db?.transactionDao()?.getAll()
+                ?.collectAsStateWithLifecycle(listOf())?.value ?: listOf()
             FinanceApp(this, db)
         }
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?
+        requestCode: Int, resultCode: Int, data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            data?.data?.also { uri ->
+                try {
+                    contentResolver.openFileDescriptor(uri, "r")?.use {
+                        val transactions = CsvToBeanBuilder<Transaction>(
+                            FileReader(it.fileDescriptor)
+                        ).withType(Transaction::class.java).build().parse()
+                        transactions.forEach { transaction ->
+                            db?.transactionDao()?.insert(transaction)
+                        }
+                    }
+                } catch (e: FileNotFoundException) {
+                    e.printStackTrace()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+
         if (requestCode == 2 && resultCode == RESULT_OK) {
             data?.data?.also { uri ->
                 try {
                     contentResolver.openFileDescriptor(uri, "w")?.use {
                         val writer = FileWriter(it.fileDescriptor)
-                        val beanToCsv = StatefulBeanToCsvBuilder<List<Transaction>>(writer).build()
+                        val beanToCsv = StatefulBeanToCsvBuilder<Transaction>(writer).build()
                         beanToCsv.write(transactions)
                         writer.close()
                     }
@@ -73,23 +93,20 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun FinanceApp(activity: Activity, db: FinanceDatabase) {
+fun FinanceApp(activity: Activity, db: FinanceDatabase?) {
     FinanceTheme {
         val navController = rememberNavController()
         val currentBackStack by navController.currentBackStackEntryAsState()
         val currentDestination = currentBackStack?.destination
         val currentScreen =
             financeScreens.find { it.route == currentDestination?.route } ?: ViewTransactions
-        Scaffold(
-            bottomBar = {
-                NavBar(
-                    currentScreen = currentScreen,
-                    onTabSelected = { screen -> navController.navigateSingleTopTo(screen.route) },
-                    screens = financeScreens
-                )
-            },
-            topBar = { TopBar(activity) }
-        ) { innerPadding ->
+        Scaffold(bottomBar = {
+            NavBar(
+                currentScreen = currentScreen,
+                onTabSelected = { screen -> navController.navigateSingleTopTo(screen.route) },
+                screens = financeScreens
+            )
+        }, topBar = { TopBar(activity) }) { innerPadding ->
             FinanceNavHost(
                 db,
                 modifier = Modifier

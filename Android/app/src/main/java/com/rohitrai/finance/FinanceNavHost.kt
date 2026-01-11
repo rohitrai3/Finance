@@ -23,8 +23,13 @@ import com.rohitrai.finance.ui.ViewTransactionsScreen
 import java.util.Date
 
 @Composable
-fun FinanceNavHost(db: FinanceDatabase, modifier: Modifier = Modifier, navController: NavHostController) {
-    val transactions = db.transactionDao().getAll().collectAsStateWithLifecycle(initialValue = listOf())
+fun FinanceNavHost(
+    db: FinanceDatabase?,
+    modifier: Modifier = Modifier,
+    navController: NavHostController
+) {
+    val transactions = db?.transactionDao()?.getAll()
+        ?.collectAsStateWithLifecycle(initialValue = listOf())?.value ?: listOf()
     val amount = rememberTextFieldState()
     val isAmountError = rememberSaveable { mutableStateOf(false) }
     val types = listOf(TransactionType.DEBIT, TransactionType.CREDIT)
@@ -44,7 +49,7 @@ fun FinanceNavHost(db: FinanceDatabase, modifier: Modifier = Modifier, navContro
         isTagsError.value = tags.text.isEmpty()
 
         if (!(isAmountError.value || isDescriptionError.value || isTagsError.value)) {
-            db.transactionDao().insert(
+            db?.transactionDao()?.insert(
                 Transaction(
                     amount = amount.text.toString().toDouble(),
                     type = selectedType,
@@ -62,7 +67,7 @@ fun FinanceNavHost(db: FinanceDatabase, modifier: Modifier = Modifier, navContro
         modifier = modifier.padding(16.dp, 0.dp)
     ) {
         composable(route = ViewTransactions.route) {
-            ViewTransactionsScreen(transactions.value)
+            ViewTransactionsScreen(transactions)
         }
         composable(route = AddTransaction.route) {
             AddTransactionScreen(
