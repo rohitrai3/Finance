@@ -59,7 +59,7 @@ fun FinanceNavHost(db: FinanceDatabase, modifier: Modifier = Modifier, navContro
     NavHost(
         navController = navController,
         startDestination = ViewTransactions.route,
-        modifier = modifier.padding(16.dp)
+        modifier = modifier.padding(16.dp, 0.dp)
     ) {
         composable(route = ViewTransactions.route) {
             ViewTransactionsScreen(transactions.value)

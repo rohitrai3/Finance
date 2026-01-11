@@ -3,6 +3,7 @@ package com.rohitrai.finance.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val Black = Color.Black
+val DarkGray = Color.DarkGray
 val Gray = Color.Gray
 val LightGray = Color.LightGray
 val LighterRed = Color(0x22FF0000)

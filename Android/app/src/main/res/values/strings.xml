@@ -7,8 +7,10 @@
     <string name="date_label">Date</string>
     <string name="description_label">Description</string>
     <string name="description_placeholder">Ate lunch in canteen</string>
-    <string name="ok_label">OK</string>
     <string name="edit_calendar_icon">Edit calendar</string>
+    <string name="export_label">Export</string>
+    <string name="import_label">Import</string>
+    <string name="ok_label">OK</string>
     <string name="rupee_symbol">₹</string>
     <string name="tags_label">Tags</string>
     <string name="tags_placeholder">Food</string>

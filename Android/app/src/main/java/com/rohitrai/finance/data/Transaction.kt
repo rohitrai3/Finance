@@ -3,20 +3,28 @@ package com.rohitrai.finance.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.rohitrai.finance.data.TransactionType
+import com.opencsv.bean.CsvBindByName
 import java.util.Date
 
 @Entity(tableName = "transactions")
 data class Transaction(
+    @CsvBindByName
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
+    @CsvBindByName
     val amount: Double,
+    @CsvBindByName
     val type: TransactionType,
+    @CsvBindByName
     val description: String,
+    @CsvBindByName
     val tags: String,
+    @CsvBindByName
     val date: Long,
-    @ColumnInfo(name = "create_time")
+    @ColumnInfo
+    @CsvBindByName
     val createTime: Long = Date().time,
-    @ColumnInfo(name = "update_time")
+    @ColumnInfo
+    @CsvBindByName
     val updateTime: Long = Date().time,
 )

@@ -66,4 +66,6 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+    // OpenCSV
+    implementation(libs.opencsv)
 }
