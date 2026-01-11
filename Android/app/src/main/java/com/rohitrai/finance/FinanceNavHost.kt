@@ -3,12 +3,15 @@ package com.rohitrai.finance
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.DisplayMode
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -20,13 +23,15 @@ import com.rohitrai.finance.data.Transaction
 import com.rohitrai.finance.data.TransactionType
 import com.rohitrai.finance.ui.AddTransactionScreen
 import com.rohitrai.finance.ui.ViewTransactionsScreen
+import kotlinx.coroutines.launch
 import java.util.Date
 
 @Composable
 fun FinanceNavHost(
     db: FinanceDatabase?,
     modifier: Modifier = Modifier,
-    navController: NavHostController
+    navController: NavHostController,
+    snackbarHostState: SnackbarHostState
 ) {
     val transactions = db?.transactionDao()?.getAll()
         ?.collectAsStateWithLifecycle(initialValue = listOf())?.value ?: listOf()
@@ -42,6 +47,8 @@ fun FinanceNavHost(
         initialSelectedDateMillis = Date().time,
         initialDisplayMode = DisplayMode.Input
     )
+    val scope = rememberCoroutineScope()
+    val notificationMessage = stringResource(R.string.transaction_add_success_notification)
 
     fun onAddButtonClick() {
         isAmountError.value = amount.text.isEmpty()
@@ -58,6 +65,11 @@ fun FinanceNavHost(
                     date = date.selectedDateMillis ?: Date().time
                 )
             )
+
+            scope.launch { snackbarHostState.showSnackbar(
+                message = notificationMessage,
+                withDismissAction = true
+            ) }
         }
     }
 
@@ -87,9 +99,9 @@ fun FinanceNavHost(
 }
 
 fun NavHostController.navigateSingleTopTo(route: String) = this.navigate(route) {
-        popUpTo(this@navigateSingleTopTo.graph.findStartDestination().id) {
-            saveState = true
-        }
-        launchSingleTop = true
-        restoreState = true
+    popUpTo(this@navigateSingleTopTo.graph.findStartDestination().id) {
+        saveState = true
     }
+    launchSingleTop = true
+    restoreState = true
+}

@@ -1,29 +1,16 @@
 package com.rohitrai.finance
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.consumeWindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
 import com.opencsv.bean.CsvToBeanBuilder
 import com.opencsv.bean.StatefulBeanToCsvBuilder
 import com.rohitrai.finance.data.FinanceDatabase
 import com.rohitrai.finance.data.Transaction
-import com.rohitrai.finance.ui.component.NavBar
-import com.rohitrai.finance.ui.component.TopBar
-import com.rohitrai.finance.ui.theme.FinanceTheme
 import java.io.FileNotFoundException
 import java.io.FileReader
 import java.io.FileWriter
@@ -89,33 +76,6 @@ class MainActivity : ComponentActivity() {
                     e.printStackTrace()
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun FinanceApp(activity: Activity, db: FinanceDatabase?) {
-    FinanceTheme {
-        val navController = rememberNavController()
-        val currentBackStack by navController.currentBackStackEntryAsState()
-        val currentDestination = currentBackStack?.destination
-        val currentScreen =
-            financeScreens.find { it.route == currentDestination?.route } ?: ViewTransactions
-        Scaffold(bottomBar = {
-            NavBar(
-                currentScreen = currentScreen,
-                onTabSelected = { screen -> navController.navigateSingleTopTo(screen.route) },
-                screens = financeScreens
-            )
-        }, topBar = { TopBar(activity) }) { innerPadding ->
-            FinanceNavHost(
-                db,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .consumeWindowInsets(innerPadding),
-                navController = navController
-            )
         }
     }
 }
