@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
@@ -25,6 +26,7 @@ fun NavBar(
         modifier = Modifier
             .fillMaxWidth()
             .selectableGroup()
+            .navigationBarsPadding()
     ) {
         screens.forEach { screen ->
             NavTab(
