@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -31,6 +32,7 @@ fun NumberInput(
     state: TextFieldState
 ) {
     BasicTextField(
+        cursorBrush = SolidColor(White),
         decorator = { innerTextField ->
             if(state.text.isEmpty()) BasicText(text = label, style = TextStyle(
                 color = if (isError.value) LightRed else Gray,
