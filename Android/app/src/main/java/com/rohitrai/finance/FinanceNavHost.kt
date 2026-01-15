@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -49,8 +50,10 @@ fun FinanceNavHost(
     )
     val scope = rememberCoroutineScope()
     val notificationMessage = stringResource(R.string.transaction_add_success_notification)
+    val focusManager = LocalFocusManager.current
 
     fun onAddButtonClick() {
+        focusManager.clearFocus()
         isAmountError.value = amount.text.isEmpty()
         isDescriptionError.value = description.text.isEmpty()
         isTagsError.value = tags.text.isEmpty()
