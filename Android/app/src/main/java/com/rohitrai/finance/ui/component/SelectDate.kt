@@ -28,9 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.rohitrai.finance.R
 import com.rohitrai.finance.ui.theme.Gray
 import com.rohitrai.finance.ui.theme.White
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import com.rohitrai.finance.utils.convertMillisToDate
 
 @Composable
 fun SelectDate(date: DatePickerState) {
@@ -55,32 +53,24 @@ fun SelectDate(date: DatePickerState) {
         onValueChange = {},
         readOnly = true,
         textStyle = TextStyle(
-            fontSize = 16.sp,
-            color = White
+            color = White,
+            fontSize = 16.sp
         ),
         value = date.selectedDateMillis?.let { convertMillisToDate(it) } ?: ""
     )
 
     if (isShowDataPicker) {
         DatePickerDialog(
-            onDismissRequest = {},
             confirmButton = {
                 TextButton(
                     onClick = {
                         isShowDataPicker = !isShowDataPicker
                     }
                 ) { Text(stringResource(R.string.ok_label)) }
-            }
+            },
+            onDismissRequest = {}
         ) {
-            DatePicker(
-                state = date
-            )
+            DatePicker(state = date)
         }
     }
-}
-
-fun convertMillisToDate(millis: Long): String {
-    val formatter = SimpleDateFormat("MMM d, yyyy", Locale.getDefault())
-
-    return formatter.format(Date(millis))
 }

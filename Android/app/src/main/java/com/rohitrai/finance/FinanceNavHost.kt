@@ -82,7 +82,7 @@ fun FinanceNavHost(
         modifier = modifier.padding(16.dp, 0.dp)
     ) {
         composable(route = ViewTransactions.route) {
-            ViewTransactionsScreen(transactions)
+            ViewTransactionsScreen(db, snackbarHostState, transactions)
         }
         composable(route = AddTransaction.route) {
             AddTransactionScreen(

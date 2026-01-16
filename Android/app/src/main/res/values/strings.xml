@@ -11,9 +11,11 @@
     <string name="export_label">Export</string>
     <string name="import_label">Import</string>
     <string name="transaction_add_success_notification">Transaction added successfully.</string>
+    <string name="transaction_update_success_notification">Transaction updated successfully.</string>
     <string name="ok_label">OK</string>
     <string name="rupee_symbol">₹</string>
     <string name="tags_label">Tags</string>
     <string name="tags_placeholder">Food</string>
     <string name="type_label">Type</string>
+    <string name="update_label">Update</string>
 </resources>
