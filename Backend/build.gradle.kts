@@ -19,8 +19,15 @@ repositories {
 }
 
 dependencies {
+	// Lombok
+	annotationProcessor("org.projectlombok:lombok:1.18.42")
+	compileOnly("org.projectlombok:lombok:1.18.42")
+
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	// Lombok
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
+	testCompileOnly("org.projectlombok:lombok:1.18.42")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
