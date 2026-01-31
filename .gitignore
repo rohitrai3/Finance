@@ -1,9 +1,9 @@
 /Android/*.iml
-/Android/.gradle
+**/.gradle
 /Android/local.properties
-/Android/.idea
+**/.idea
 /Android/.DS_Store
-/Android/build
+**/build
 /Android/captures
 /Android/.externalNativeBuild
 /Android/.cxx
