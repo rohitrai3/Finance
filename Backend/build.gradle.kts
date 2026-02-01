@@ -19,17 +19,20 @@ repositories {
 }
 
 dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-webmvc")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	// Lombok
 	annotationProcessor("org.projectlombok:lombok:1.18.42")
 	compileOnly("org.projectlombok:lombok:1.18.42")
+	// MySQL
+	implementation("com.mysql:mysql-connector-j")
 
-	implementation("org.springframework.boot:spring-boot-starter-webmvc")
+	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
+	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	// Lombok
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
 	testCompileOnly("org.projectlombok:lombok:1.18.42")
-
-	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<Test> {
