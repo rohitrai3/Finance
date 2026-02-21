@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="108"
+   height="108"
+   viewBox="0 0 108 108"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   sodipodi:docname="finance.svg"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     inkscape:zoom="1.4235831"
+     inkscape:cx="49.171699"
+     inkscape:cy="93.777455"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" /><defs
+     id="defs1" /><g
+     inkscape:label="Background"
+     inkscape:groupmode="layer"
+     id="layer1"><rect
+       style="fill:#000000;stroke-width:0.211;stroke-dasharray:none"
+       id="rect1"
+       width="108"
+       height="108"
+       x="0"
+       y="0"
+       sodipodi:insensitive="true" /><path
+       fill="#010101"
+       d="m 59.472,34.416 h 7.872 L 70.224,30 H 40.656 l -2.88,4.416 h 4.992 c 5.184,0 9.984,0.384 11.904,4.8 H 40.656 l -2.88,4.416 h 17.472 v 0.192 c 0,3.264 -2.688,8.256 -11.52,8.256 h -4.416 v 4.224 L 56.592,78 h 7.872 L 46.416,55.536 c 7.488,-0.384 14.4,-4.608 15.36,-11.904 h 5.568 l 2.88,-4.416 h -8.64 c -0.192,-1.728 -0.96,-3.456 -2.112,-4.8 z"
+       id="path1"
+       style="fill:#ffffff;stroke-width:0.192" /></g></svg>
