@@ -6,6 +6,7 @@
 }
 
 @theme {
+  --color-gray: #343d46;
   --font-roboto: roboto;
 }
 
