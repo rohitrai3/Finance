@@ -11,3 +11,14 @@ export type AddTransactionInput = {
 	date: number;
 }
 
+export type Transaction = {
+	id: number;
+	amount: number;
+	type: string;
+	description: string;
+	tags: string;
+	date: number;
+	createTime: number;
+	updateTime: number;
+}
+
