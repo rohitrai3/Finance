@@ -10,3 +10,6 @@
   --font-roboto: roboto;
 }
 
+body {
+  scrollbar-color: #343d46 black;
+}

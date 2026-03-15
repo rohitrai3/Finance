@@ -28,7 +28,7 @@ function AddTransactionForm() {
       });
   }
 
-  return <div className="flex h-screen items-center justify-center w-screen">
+  return <div className="flex h-screen items-center justify-center w-3xs">
     <form action={add} className="flex flex-col gap-6 w-lg">
       <input className="border border-white px-4 py-2 rounded-xl" name="amount" placeholder="Amount" type="text" />
       <div className="flex">
@@ -41,7 +41,7 @@ function AddTransactionForm() {
           Credit
         </label>
       </div>
-      <input className="border border-white px-4 py-2 rounded-xl" name="description" placeholder="Description" type="text" />
+      <textarea className="border border-white px-4 py-2 rounded-xl" name="description" placeholder="Description" />
       <input className="border border-white px-4 py-2 rounded-xl" name="tags" placeholder="Tags" type="text" />
       <input className="border border-white px-4 py-2 rounded-xl" name="date" type="date" />
       <div className="flex justify-end">
