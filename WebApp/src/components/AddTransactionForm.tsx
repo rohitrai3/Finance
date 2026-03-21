@@ -45,7 +45,7 @@ function AddTransactionForm() {
       <input className="border border-white px-4 py-2 rounded-xl" name="tags" placeholder="Tags" type="text" />
       <input className="border border-white px-4 py-2 rounded-xl" name="date" type="date" />
       <div className="flex justify-end">
-        <input className="bg-gray px-4 py-2 rounded-xl w-fit cursor-pointer" type="submit" value="Add" />
+        <input className="bg-gray hover:bg-purple px-4 py-2 rounded-xl w-fit cursor-pointer" type="submit" value="Add" />
       </div>
     </form>
   </div>;
