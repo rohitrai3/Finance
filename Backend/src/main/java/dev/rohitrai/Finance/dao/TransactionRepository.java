@@ -1,7 +1,10 @@
 package dev.rohitrai.Finance.dao;
 
 import dev.rohitrai.Finance.model.Transaction;
-import org.springframework.data.repository.CrudRepository;
 
-public interface TransactionRepository extends CrudRepository<Transaction, Integer> {
+import java.util.UUID;
+
+import org.springframework.data.repository.ListCrudRepository;
+
+public interface TransactionRepository extends ListCrudRepository<Transaction, UUID> {
 }

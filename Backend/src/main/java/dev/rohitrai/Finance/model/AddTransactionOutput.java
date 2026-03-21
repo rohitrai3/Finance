@@ -1,5 +1,7 @@
 package dev.rohitrai.Finance.model;
 
+import java.util.UUID;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -7,5 +9,5 @@ import lombok.Getter;
 @Getter
 public class AddTransactionOutput {
 	private Status status;
-	private int id;
+	private UUID id;
 }

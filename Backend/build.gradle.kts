@@ -26,6 +26,8 @@ dependencies {
 	compileOnly("org.projectlombok:lombok:1.18.42")
 	// MySQL
 	implementation("com.mysql:mysql-connector-j")
+	// OpenCSV
+	implementation("com.opencsv:opencsv:5.12.0")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
