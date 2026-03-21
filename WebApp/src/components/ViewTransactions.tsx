@@ -13,19 +13,17 @@ function ViewTransactions() {
 				return res.json();
 			})
 			.then((data) => {
-				console.log("data: ", data);
-				setTransactions(data);
+				setTransactions(data.transactions);
 			})
 			.catch((err) => {
 				console.log("Error: ", err);
 			})
 			.finally(() => {
-				console.log("transactions: ", transactions);
 				didInit = true;
 			});
 	}
 
-	return <div className="flex flex-wrap gap-4 justify-between">
+	return <div className="flex flex-wrap gap-4 justify-between h-full overflow-auto">
 		{transactions.map(transaction =>
 			<ViewTransaction
 				key={transaction.id}
