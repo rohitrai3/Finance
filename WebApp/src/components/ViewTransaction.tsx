@@ -19,8 +19,8 @@ function ViewTransaction({
 
 	return <div className="border-2 border-gray p-4 rounded-2xl">
 		<div className="flex">
-			₹<span className="text-5xl">{amount}</span>
-			<div className="pl-4">
+			₹<span className="text-5xl flex-1">{amount}</span>
+			<div className="pl-4 text-right">
 				{type} <p>{getDate()}</p>
 			</div>
 		</div>
