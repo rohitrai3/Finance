@@ -23,7 +23,7 @@ function Export() {
   return <div>
     <a download="transactions.csv" ref={fileDownloadRef} />
     <button className="bg-gray p-2 rounded-full" onClick={onClick}>
-      {ExportIcon("fill-white")}
+      {ExportIcon()}
     </button>
   </div>;
 }

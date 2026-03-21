@@ -1,3 +1,5 @@
+import { CreditIcon, DebitIcon } from "../icons";
+
 export type ViewTransactionProps = {
 	amount: number;
 	type: string;
@@ -20,8 +22,8 @@ function ViewTransaction({
 	return <div className="border-2 border-gray p-4 rounded-2xl">
 		<div className="flex">
 			₹<span className="text-5xl flex-1">{amount}</span>
-			<div className="pl-4 text-right">
-				{type} <p>{getDate()}</p>
+			<div className="pl-4 flex flex-col items-end">
+				{type === "DEBIT" ? DebitIcon("fill-red") : CreditIcon("fill-green")} <p>{getDate()}</p>
 			</div>
 		</div>
 		<p>{description}</p>

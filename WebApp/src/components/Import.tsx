@@ -32,7 +32,7 @@ function Import() {
   return <div>
     <input accept="text/csv" hidden onChange={onChange} ref={fileInputRef} type="file" />
     <button className="bg-gray p-2 rounded-full" onClick={onClick}>
-      {ImportIcon("fill-white")}
+      {ImportIcon()}
     </button>
   </div>;
 }

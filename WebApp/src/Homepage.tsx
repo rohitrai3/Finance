@@ -20,7 +20,7 @@ function Homepage() {
     <ViewTransactions />
     {isViewForm && <AddTransactionForm />}
     <button className="bg-gray bottom-4 fixed p-2 right-4 rounded-full" onClick={onClick}>
-      {AddIcon("fill-white")}
+      {AddIcon()}
     </button>
   </div>;
 }
