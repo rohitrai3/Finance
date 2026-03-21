@@ -19,7 +19,7 @@ function ViewTransaction({
 		return `${fullDate.substring(8, 10)} ${fullDate.substring(4, 7)} ${fullDate.substring(11, 15)}`;
 	}
 
-	return <div className="border-2 border-gray hover:border-purple p-4 rounded-2xl">
+	return <div className="border-2 border-gray hover:border-purple p-4 rounded-2xl grow">
 		<div className="flex">
 			₹<span className="text-5xl flex-1">{amount}</span>
 			<div className="pl-4 flex flex-col items-end">
