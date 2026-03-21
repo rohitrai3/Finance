@@ -45,7 +45,7 @@ function Homepage() {
         </motion.div>
       }
     </AnimatePresence>
-    <button className="bg-gray hover:bg-purple bottom-4 fixed p-2 right-4 rounded-full cursor-pointer" onClick={onClick}>
+    <button className="bg-gray hover:bg-purple bottom-4 fixed p-2 right-4 rounded-full cursor-pointer" onClick={onClick} title="New">
       {AddIcon()}
     </button>
   </div>;

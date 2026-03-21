@@ -22,7 +22,7 @@ function Export() {
 
   return <div>
     <a download="transactions.csv" ref={fileDownloadRef} />
-    <button className="bg-gray hover:bg-purple p-2 rounded-full cursor-pointer" onClick={onClick}>
+    <button className="bg-gray hover:bg-purple p-2 rounded-full cursor-pointer" onClick={onClick} title="Export">
       {ExportIcon()}
     </button>
   </div>;
