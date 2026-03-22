@@ -43,7 +43,7 @@ public class TransactionService {
     }
 
     public GetAllTransactionsOutput getAllTransactions() {
-        List<Transaction> transactions = transactionRepository.findAll();
+        List<Transaction> transactions = transactionRepository.findByOrderByDateDesc();
 
         return GetAllTransactionsOutput.builder()
                 .status(Status.SUCCESS)
