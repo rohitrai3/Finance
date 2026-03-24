@@ -79,4 +79,8 @@ public class TransactionService {
         };
     }
 
+    public void deleteAllTransactions() {
+        transactionRepository.deleteAll();
+    }
+
 }
