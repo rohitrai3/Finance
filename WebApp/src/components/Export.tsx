@@ -8,7 +8,6 @@ function Export() {
     await fetch("http://localhost:8080/transaction/export")
       .then((res) => res.blob())
       .then((data) => {
-        console.log("data: ", data);
         if (fileDownloadRef.current != null) {
           (fileDownloadRef.current as HTMLInputElement).setAttribute("href", window.URL.createObjectURL(data));
           (fileDownloadRef.current as HTMLInputElement).click();

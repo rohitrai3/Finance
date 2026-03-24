@@ -5,6 +5,7 @@ import { AddIcon } from "./icons";
 import Import from "./components/Import";
 import Export from "./components/Export";
 import { AnimatePresence, motion } from "motion/react";
+import Dashboard from "./components/Dashboard";
 
 function Homepage() {
   const [isViewForm, setIsViewForm] = useState<boolean>(false);
@@ -24,7 +25,6 @@ function Homepage() {
 
   window.addEventListener("resize", () => {
     setIsMobileScreen(checkScreen());
-    console.log("isMobileScreen: ", isMobileScreen);
   });
 
   return <div className="flex flex-col md:flex-row h-screen items-center p-4 pr-16 w-screen overflow-hidden">
@@ -32,7 +32,10 @@ function Homepage() {
       <Import />
       <Export />
     </div>
-    <ViewTransactions />
+    <div className="h-full overflow-hidden flex flex-col gap-4">
+      <Dashboard />
+      <ViewTransactions />
+    </div>
     <AnimatePresence>
       {
         isViewForm &&

@@ -1,38 +1,32 @@
-import { useState } from "react";
-import type { Transaction } from "../types";
 import ViewTransaction from "./ViewTransaction";
-
-let didInit = false;
+import { useGetTransactionsQuery } from "../store/transactionSlice";
 
 function ViewTransactions() {
-	const [transactions, setTransactions] = useState<Transaction[]>([]);
+	const { data, isError, isLoading, isSuccess } = useGetTransactionsQuery("get");
 
-	if (!didInit) {
-		fetch("http://localhost:8080/transaction/get")
-			.then((res) => {
-				return res.json();
-			})
-			.then((data) => {
-				setTransactions(data.transactions);
-			})
-			.catch((err) => {
-				console.log("Error: ", err);
-			})
-			.finally(() => {
-				didInit = true;
-			});
+	if (isError) {
+
+		return <div>Error</div>;
 	}
 
-	return <div className="flex flex-wrap gap-4 justify-between h-full overflow-auto">
-		{transactions.map(transaction =>
-			<ViewTransaction
-				key={transaction.id}
-				amount={transaction.amount}
-				type={transaction.type}
-				date={transaction.date}
-				description={transaction.description}
-			/>)}
-	</div>;
+	if (isLoading) {
+
+		return <div>Loading...</div>;
+	}
+
+	if (isSuccess) {
+
+		return <div className="flex flex-wrap gap-4 justify-between h-full overflow-auto">
+			{data.transactions.map(transaction =>
+				<ViewTransaction
+					key={transaction.id}
+					amount={transaction.amount}
+					type={transaction.type}
+					date={transaction.date}
+					description={transaction.description}
+				/>)}
+		</div>;
+	}
 }
 
 export default ViewTransactions;
