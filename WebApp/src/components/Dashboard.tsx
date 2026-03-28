@@ -56,7 +56,7 @@ function Dashboard() {
       </div>
     </div>
     <AreaChart
-      className="aspect-[10/1]"
+      className="aspect-[2/1] md:aspect-[10/1]"
       responsive
       data={debitTransactions}
       margin={{}}
