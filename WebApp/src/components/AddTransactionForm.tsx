@@ -10,7 +10,7 @@ function AddTransactionForm() {
       date: Date.parse(formData.get("date")?.toString()!)
     };
 
-    await fetch("http://localhost:8080/transaction/add", {
+    await fetch(`${import.meta.env.VITE_BACKEND_URL}transaction/add`, {
       body: JSON.stringify(addTransactionInput),
       headers: {
         "Content-Type": "application/json"
