@@ -12,7 +12,7 @@ export type AddTransactionInput = {
 };
 
 export type Transaction = {
-	id: number;
+	id: string;
 	amount: number;
 	type: string;
 	description: string;

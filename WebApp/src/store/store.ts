@@ -1,17 +1,14 @@
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
-import { transactionApiSlice } from "./transactionSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
+import { transactionSlice } from "./transactionSlice";
 
-const rootReducer = combineSlices(transactionApiSlice);
+const rootReducer = combineSlices(transactionSlice);
 
 export type RootState = ReturnType<typeof rootReducer>;
 
 export const makeStore = (preloadedState?: Partial<RootState>) => {
   const store = configureStore({
     reducer: rootReducer,
-    middleware: getDefaultMiddleware => {
-      return getDefaultMiddleware().concat(transactionApiSlice.middleware);
-    },
     preloadedState,
   });
 

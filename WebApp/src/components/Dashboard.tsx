@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useGetTransactionsQuery } from "../store/transactionSlice";
-import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis, type TooltipContentProps } from "recharts";
+import { selectTransactions } from "../store/transactionSlice";
+import { Area, AreaChart, Tooltip, XAxis, YAxis, type TooltipContentProps } from "recharts";
 import type { Transaction } from "../types";
+import { useAppSelector } from "../store/hooks";
 
 function Dashboard() {
-  const { data, isLoading, isError, isSuccess } = useGetTransactionsQuery("get");
+  const transactions: Transaction[] = useAppSelector(selectTransactions);
   const [year, setYear] = useState<number>(new Date().getFullYear());
   const [month, setMonth] = useState<number>(new Date().getMonth());
   const years = [2026, 2025, 2024];
@@ -23,61 +24,49 @@ function Dashboard() {
     return fullDate.substring(4, 10);
   }
 
-  if (isLoading) {
+  const debitTransactions = transactions.filter(transaction =>
+    transaction.type === "DEBIT" &&
+    new Date(transaction.date).getFullYear() === year &&
+    new Date(transaction.date).getMonth() === month);
 
-    return <div>Loading...</div>;
-  }
+  debitTransactions.forEach(transaction => totalAmount = totalAmount + transaction.amount);
 
-  if (isError) {
-
-    return <div>Error</div>;
-  }
-
-  if (isSuccess) {
-    const debitTransactions = data.transactions.filter(transaction =>
-      transaction.type === "DEBIT" &&
-      new Date(transaction.date).getFullYear() === year &&
-      new Date(transaction.date).getMonth() === month);
-
-    debitTransactions.forEach(transaction => totalAmount = totalAmount + transaction.amount);
-
-    return <div>
-      <div className="flex justify-between">
-        <p>Debit transactions: ₹{totalAmount}</p>
-        <div className="flex gap-2 items-center">
-          <label>Year:
-            <select
-              className="border border-white px-4 py-2 rounded-xl"
-              value={year}
-              onChange={(event) => { setYear(parseInt(event.target.value)) }}
-            >
-              {years.map((year, i) => <option value={year} key={i}>{year}</option>)}
-            </select>
-          </label>
-          <label>Month:
-            <select
-              className="border border-white px-4 py-2 rounded-xl"
-              value={month}
-              onChange={(event) => { setMonth(parseInt(event.target.value)) }}
-            >
-              {months.map((month, i) => <option value={i} key={i}>{month}</option>)}
-            </select>
-          </label>
-        </div>
+  return <div>
+    <div className="flex justify-between">
+      <p>Debit transactions: ₹{totalAmount}</p>
+      <div className="flex gap-2 items-center">
+        <label>Year:
+          <select
+            className="border border-white px-4 py-2 rounded-xl"
+            value={year}
+            onChange={(event) => { setYear(parseInt(event.target.value)) }}
+          >
+            {years.map((year, i) => <option value={year} key={i}>{year}</option>)}
+          </select>
+        </label>
+        <label>Month:
+          <select
+            className="border border-white px-4 py-2 rounded-xl"
+            value={month}
+            onChange={(event) => { setMonth(parseInt(event.target.value)) }}
+          >
+            {months.map((month, i) => <option value={i} key={i}>{month}</option>)}
+          </select>
+        </label>
       </div>
-      <AreaChart
-        className="aspect-[3/1]"
-        responsive
-        data={debitTransactions}
-        margin={{}}
-      >
-        <Tooltip content={toolTip} />
-        <XAxis dataKey={getXAxisLabel} fontSize={10} />
-        <YAxis fontSize={10} />
-        <Area dataKey="amount" isAnimationActive={true} />
-      </AreaChart>
-    </div>;
-  }
+    </div>
+    <AreaChart
+      className="aspect-[10/1]"
+      responsive
+      data={debitTransactions}
+      margin={{}}
+    >
+      <Tooltip content={toolTip} />
+      <XAxis dataKey={getXAxisLabel} fontSize={10} />
+      <YAxis fontSize={10} />
+      <Area dataKey="amount" isAnimationActive={true} />
+    </AreaChart>
+  </div>;
 
 }
 

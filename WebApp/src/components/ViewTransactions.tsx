@@ -1,32 +1,21 @@
+import { useAppSelector } from "../store/hooks";
+import { selectTransactions } from "../store/transactionSlice";
+import type { Transaction } from "../types";
 import ViewTransaction from "./ViewTransaction";
-import { useGetTransactionsQuery } from "../store/transactionSlice";
 
 function ViewTransactions() {
-	const { data, isError, isLoading, isSuccess } = useGetTransactionsQuery("get");
+	const transactions: Transaction[] = useAppSelector(selectTransactions);
 
-	if (isError) {
-
-		return <div>Error</div>;
-	}
-
-	if (isLoading) {
-
-		return <div>Loading...</div>;
-	}
-
-	if (isSuccess) {
-
-		return <div className="flex flex-wrap gap-4 justify-between h-full overflow-auto">
-			{data.transactions.map(transaction =>
-				<ViewTransaction
-					key={transaction.id}
-					amount={transaction.amount}
-					type={transaction.type}
-					date={transaction.date}
-					description={transaction.description}
-				/>)}
-		</div>;
-	}
+	return <div className="flex flex-wrap gap-4 justify-between h-full overflow-auto">
+		{transactions.map(transaction =>
+			<ViewTransaction
+				key={transaction.id}
+				amount={transaction.amount}
+				type={transaction.type}
+				date={transaction.date}
+				description={transaction.description}
+			/>)}
+	</div>;
 }
 
 export default ViewTransactions;

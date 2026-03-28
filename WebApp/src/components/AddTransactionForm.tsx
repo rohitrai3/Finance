@@ -1,31 +1,24 @@
-import { Type, type AddTransactionInput } from "../types";
+import { faker } from "@faker-js/faker";
+import { useAppDispatch } from "../store/hooks";
+import { Type, type Transaction } from "../types";
+import { addTransaction } from "../store/transactionSlice";
 
 function AddTransactionForm() {
+  const dispatch = useAppDispatch();
+
   async function add(formData: FormData) {
-    const addTransactionInput: AddTransactionInput = {
+    const transaction: Transaction = {
+      id: faker.string.uuid(),
       amount: parseInt(formData.get("amount")?.toString()!),
       type: formData.get("type")?.toString()!,
       description: formData.get("description")?.toString()!,
       tags: formData.get("tags")?.toString()!,
-      date: Date.parse(formData.get("date")?.toString()!)
+      date: Date.parse(formData.get("date")?.toString()!),
+      createTime: 0,
+      updateTime: 0,
     };
 
-    await fetch("http://localhost:8080/transaction/add", {
-      body: JSON.stringify(addTransactionInput),
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST"
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log("data: ", data);
-      })
-      .catch((err) => {
-        console.log("Error: ", err);
-      });
+    dispatch(addTransaction(transaction));
   }
 
   return <div className="flex h-screen items-center justify-center w-3xs">
