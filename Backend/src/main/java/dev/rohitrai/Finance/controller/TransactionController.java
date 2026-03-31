@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
-@CrossOrigin(origins = { "http://localhost:5173" })
+@CrossOrigin(origins = "${CORS_URL}")
 @RequestMapping("/transaction/")
 @RequiredArgsConstructor
 @RestController

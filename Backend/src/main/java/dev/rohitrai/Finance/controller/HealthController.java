@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = { "http://localhost:5173" })
-@RequestMapping("/health")
+@CrossOrigin(origins = "${app.cors.origin}")
+@RequestMapping("/health/")
 @RequiredArgsConstructor
 @RestController
 public class HealthController {
@@ -19,7 +19,7 @@ public class HealthController {
     @NonNull
     private HealthService healthService;
 
-    @GetMapping("/ping")
+    @GetMapping("ping")
     public ResponseEntity<PingOutput> ping() {
 
         return healthService.ping();

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useGetTransactionsQuery } from "../store/transactionSlice";
-import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis, type TooltipContentProps } from "recharts";
+import { Area, AreaChart, Tooltip, XAxis, YAxis, type TooltipContentProps } from "recharts";
 import type { Transaction } from "../types";
 
 function Dashboard() {
