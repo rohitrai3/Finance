@@ -36,7 +36,7 @@ function AddTransactionForm() {
       </div>
       <textarea className="border border-white px-4 py-2 rounded-xl" name="description" placeholder="Description" />
       <input className="border border-white px-4 py-2 rounded-xl" name="tags" placeholder="Tags" type="text" />
-      <input className="border border-white px-4 py-2 rounded-xl" name="date" type="date" />
+      <input className="border border-white px-4 py-2 rounded-xl w-full" name="date" type="date" />
       <div className="flex justify-end">
         <input className="bg-gray hover:bg-purple px-4 py-2 rounded-xl w-fit cursor-pointer" type="submit" value="Add" />
       </div>
